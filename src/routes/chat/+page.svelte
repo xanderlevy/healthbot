@@ -51,7 +51,7 @@
 <div class="flex h-full w-3/5 flex-col items-center justify-center gap-3">
 	<div class="flex h-full w-full flex-col justify-center gap-3">
 		<div class="flex h-full flex-col items-center justify-center rounded-md border">
-			{#if messages.length !== 1}
+			{#if messages.length !== 0}
 				<ScrollArea class="h-full w-full p-4">
 					<div class="flex w-full items-center justify-end">
 						<div
