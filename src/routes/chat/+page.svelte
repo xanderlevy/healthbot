@@ -24,7 +24,6 @@
 	let value;
 	let x;
 	let messages = [];
-let ret;
 </script>
 
 <div class="flex w-full items-center justify-between">
@@ -54,21 +53,26 @@ let ret;
 		<div class="flex h-full flex-col items-center justify-center rounded-md border">
 			{#if messages.length !== 0}
 				<ScrollArea class="h-full w-full p-4">
+				{#each messages as msg}
+					{#if msg.role === 'user'}
 					<div class="flex w-full items-center justify-end">
 						<div
 							class="bluredback flex min-h-4 min-w-[40%] flex-col rounded-sm p-1 text-end text-black"
 						>
-							<p>Hello</p>
+							<p>{msg.text}</p>
 							<p class="text-[12px] font-bold">Doctor</p>
 						</div>
 					</div>
-					<Separator class="m-2" />
+					{:else}
 					<div
 						class="bluredback flex min-h-4 w-fit min-w-[40%] flex-col items-start gap-1 rounded-sm p-1 text-black"
 					>
-						<p>{ret}</p>
+						<p>{msg.text}</p>
 						<p class="text-[12px] font-bold">Patient</p>
 					</div>
+					{/if}
+<Separator class="m-2" />
+	{/each}
 				</ScrollArea>
 			{:else}
 				<div class="flex flex-col items-start justify-center rounded-md p-4 text-black">
@@ -83,7 +87,7 @@ let ret;
 			class="bluredback relative rounded-lg focus-within:ring-1 focus-within:ring-ring"
 			method="POST"
 			use:enhance={({ cancel }) => {
-				messages = [...messages, value];
+				messages = [...messages, {role: 'user', text: value}];
 							
 				if(value.length >= 500){
 					toast("Too big of a message! I ain't fucking rich!", {
@@ -120,13 +124,13 @@ let ret;
 						// Read the stream
 						reader.read().then(function processText({ done, value }) {
 							if (done) {
+								messages = [...messages, {role:"bot", text: data}];
 								console.log('Stream complete');
 								return;
 							}
 
 							// Decode the value and add it to our data
 							data += decoder.decode(value, { stream: true });
-							ret = data;
 
 							// Optionally, handle the data (e.g., update messages)
 							// messages = [...messages, data];
