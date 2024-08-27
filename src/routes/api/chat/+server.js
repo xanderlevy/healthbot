@@ -38,6 +38,7 @@ export async function POST({ request, cookies }) {
 								console.log(openAIstream);
 				
 				for await (const data of openAIstream) {
+					console.log(data);
 					if(data["object"] === "thread.message.delta"){
 					    	const textChunk = data["delta"]["content"]["text"]["value"];
 						console.log(textChunk);
