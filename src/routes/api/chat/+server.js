@@ -5,10 +5,10 @@ const openai = new OpenAI();
 
 export async function POST({ request, cookies }) {
 	const { message } = await request.json();
-	cookies.set("count", cookies.get("count") + 1, {path: "/"});
-	if(cookies.get("count") > 15){
-		return json({error: "Bro, you sent to many messages too soon. AKA you exceeded the limit, please wait a day to continue."}, {status: 402});
-	}
+	//cookies.set("count", cookies.get("count") + 1, {path: "/"});
+	//if(cookies.get("count") > 15){
+	//	return json({error: "Bro, you sent to many messages too soon. AKA you exceeded the limit, please wait a day to continue."}, {status: 402});
+	//}
 
 	let thread = cookies.get("thread");
 	console.log(thread);
