@@ -9,19 +9,30 @@ export async function POST({ request, cookies }) {
 	if(cookies.get("count") > 15){
 		return json({error: "Bro, you sent to many messages too soon. AKA you exceeded the limit, please wait a day to continue."}, {status: 402});
 	}
+
+	let thread = cookies.get("thread");
+	if(!thread){
+		return json({error:"no thread"}, {status: 402});
+	}
+	
 	// Create a ReadableStream to send data in chunks
 	const stream = new ReadableStream({
 		async start(controller) {
 			try {
-				const openAIStream = await openai.chat.completions.create({
-					model: "gpt-4o-mini", // Replace with your desired model
-					messages: [{ role: "user", content: message }],
-					stream: true,
-				});
+				const message = await openai.beta.threads.messages.create(
+				  thread,
+				  {
+				    role: "user",
+				    content: message
+				  }
+				);
 
-				// Stream the OpenAI response to the client
-				for await (const chunk of openAIStream) {
-					const textChunk = chunk.choices[0]?.delta?.content || "";
+				const openAIstream = openai.beta.threads.runs.stream(thread, {
+				    assistant_id: // asitant id
+				})
+				
+				for await (const data of openAIstream) {
+				    	const textChunk = data.choices[0]?.delta?.content || "";
 					controller.enqueue(textChunk);
 				}
 				controller.close();
