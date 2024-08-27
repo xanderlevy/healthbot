@@ -21,7 +21,7 @@ export async function POST({ request, cookies }) {
 	const stream = new ReadableStream({
 		async start(controller) {
 			try {
-				const message = await openai.beta.threads.messages.create(
+				const openAImessage = await openai.beta.threads.messages.create(
 				  thread,
 				  {
 				    role: "user",
@@ -38,6 +38,7 @@ export async function POST({ request, cookies }) {
 					console.log(textChunk);
 					controller.enqueue(textChunk);
 				}
+				console.log("BRO");
 				controller.close();
 			} catch (error) {
 				controller.error(error);
