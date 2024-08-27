@@ -37,10 +37,11 @@ export async function POST({ request, cookies }) {
 								console.log(openAIstream);
 				
 				for await (const data of openAIstream) {
-					console.log("test");
-				    	const textChunk = data.choices[0]?.delta?.content || "";
-					console.log(textChunk);
-					controller.enqueue(textChunk);
+					if(textChunk["object"] === "thread.message.delta"){
+					    	const textChunk = data["delta"]["content"]["text"]["value"];
+						console.log(textChunk);
+						controller.enqueue(textChunk);
+					}
 				}
 				console.log("BRO");
 				controller.close();
