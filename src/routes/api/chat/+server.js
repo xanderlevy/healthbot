@@ -9,6 +9,7 @@ export async function POST({ request, cookies }) {
 	//if(cookies.get("count") > 15){
 	//	return json({error: "Bro, you sent to many messages too soon. AKA you exceeded the limit, please wait a day to continue."}, {status: 402});
 	//}
+	//plz work
 
 	let thread = cookies.get("tid");
 	console.log(thread);
