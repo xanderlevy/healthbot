@@ -10,7 +10,7 @@ export async function POST({ request, cookies }) {
 	//	return json({error: "Bro, you sent to many messages too soon. AKA you exceeded the limit, please wait a day to continue."}, {status: 402});
 	//}
 
-	let thread = cookies.getAll();
+	let thread = cookies.get("tid");
 	console.log(thread);
 	if(!thread){
 		return json({error:"no thread"}, {status: 402});
