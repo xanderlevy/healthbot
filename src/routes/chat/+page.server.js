@@ -10,7 +10,7 @@ export async function load({ cookies }) {
 		cookies.set('tid', await openai.beta.threads.create(), { path: "/" });
 	//}
 
-	return { tid };
+	//return { tid };
 }
 
 
