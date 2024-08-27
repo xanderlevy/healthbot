@@ -7,7 +7,8 @@ export async function load({ cookies }) {
 	// let tid = cookies.get('tid');
 	// if (!tid) {
 	//	// new thread plz
-		cookies.set('tid', await openai.beta.threads.create(), { path: "/" });
+	let thread = await openai.beta.threads.create();
+		cookies.set('tid', thread.id, { path: "/" });
 	//}
 
 	//return { tid };
