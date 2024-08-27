@@ -11,7 +11,7 @@ export async function POST({ request, cookies }) {
 	//}
 	//plz work
 
-	let thread = cookies.get("tid");
+	let thread = cookies.get("tid").id;
 	console.log(thread);
 	if(!thread){
 		return json({error:"no thread"}, {status: 402});
