@@ -24,6 +24,7 @@
 	let value;
 	let x;
 	let messages = [];
+let ret;
 </script>
 
 <div class="flex w-full items-center justify-between">
@@ -65,7 +66,7 @@
 					<div
 						class="bluredback flex min-h-4 w-fit min-w-[40%] flex-col items-start gap-1 rounded-sm p-1 text-black"
 					>
-						<p>Hi</p>
+						<p>{ret}</p>
 						<p class="text-[12px] font-bold">Patient</p>
 					</div>
 				</ScrollArea>
@@ -83,7 +84,7 @@
 			method="POST"
 			use:enhance={({ cancel }) => {
 				messages = [...messages, value];
-				/*				
+							
 				if(value.length >= 500){
 					toast("Too big of a message! I ain't fucking rich!", {
 				unstyled: true,
@@ -125,7 +126,7 @@
 
 							// Decode the value and add it to our data
 							data += decoder.decode(value, { stream: true });
-							console.log('Received chunk:', data);
+							ret = data;
 
 							// Optionally, handle the data (e.g., update messages)
 							// messages = [...messages, data];
@@ -135,9 +136,9 @@
 						});
 					})
 					.catch((error) => {
-						console.error('There was a problem with the fetch operation:', error);
+						alert('There was a problem with the fetch operation:', error);
 					});
-*/
+
 				value = '';
 				cancel();
 			}}
