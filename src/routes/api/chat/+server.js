@@ -28,12 +28,16 @@ export async function POST({ request, cookies }) {
 				    content: message
 				  }
 				);
+				console.log(openAImessage);
 
 				const openAIstream = openai.beta.threads.runs.stream(thread, {
 				    assistant_id: "asst_ks3cIbxk3Z0WdVZgWefnsp4H"
 				})
+
+								console.log(openAIstream);
 				
 				for await (const data of openAIstream) {
+					console.log("test");
 				    	const textChunk = data.choices[0]?.delta?.content || "";
 					console.log(textChunk);
 					controller.enqueue(textChunk);
@@ -41,6 +45,7 @@ export async function POST({ request, cookies }) {
 				console.log("BRO");
 				controller.close();
 			} catch (error) {
+				console.error(error);
 				controller.error(error);
 			}
 		},
