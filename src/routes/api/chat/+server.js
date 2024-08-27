@@ -30,9 +30,10 @@ export async function POST({ request, cookies }) {
 				);
 				console.log(openAImessage);
 
-				const openAIstream = openai.beta.threads.runs.stream(thread, {
-				    assistant_id: "asst_ks3cIbxk3ZOWdVZgWefnsp4H"
-				})
+				const openAIstream = await openai.beta.threads.runs.create(
+				    thread,
+				    { assistant_id: "asst_ks3cIbxk3ZOWdVZgWefnsp4H", stream: true }
+				  );
 
 								console.log(openAIstream);
 				
